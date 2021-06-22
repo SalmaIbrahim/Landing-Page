@@ -60,6 +60,15 @@ section {
     min-height: 80vh;
 }
 
+.collapsible {  
+    cursor: pointer;
+  }
+  
+ 
+.content {
+    display: none;
+    overflow: hidden;
+}
 
 /* ---- Module Rules ---- */
 
@@ -272,3 +281,7 @@ a.styleOfHamburger {
         display: flex;
     }
 }
+
+/* #navbar__list.done{
+    display: none;
+} */

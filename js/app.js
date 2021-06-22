@@ -197,12 +197,37 @@ function reportWindowSize (event) {
 }
 window.addEventListener('resize', reportWindowSize);
 
-
+function navULDisplay () {
+    if(navUL.style.display === 'none') {
+        navUL.style.display = 'flex';
+    } else {
+        navUL.style.display = 'none';
+    }
+}
 toggleBtn.addEventListener('click', ()=> {
-    navUL.classList.toggle('active');
+    // navUL.classList.toggle('active');    
+    navULDisplay();
 });
 
 
+navUL.addEventListener('click', ()=> {
+    navULDisplay();
+});
+
+
+// collapsible
+let collapsibles = document.querySelectorAll('.collapsible');
+
+collapsibles.forEach(collapsible => {
+    collapsible.addEventListener('click', ()=> {
+        let content = collapsible.nextElementSibling;
+        if(content.style.display === 'block') {
+            content.style.display = 'none';
+        } else {
+            content.style.display = 'block';
+        }
+    })
+});
 
 
 
