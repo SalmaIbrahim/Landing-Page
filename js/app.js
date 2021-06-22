@@ -81,14 +81,7 @@ list.appendChild(docFragment);
 let navItems = document.querySelectorAll('.navItem');
 let navLinks = document.querySelectorAll('.navLinks');
 
-// if navItem class was in anchors
-/*
-let linksHref = [];
-navItems.forEach(navItem => {
-    linksHref.push(navItem.getAttribute('href').slice(1));
-});
-*/
-// if navItem class was in items
+// navItem class in items
 let linksHref = [];
 navItems.forEach( navItem => {
     let aItems = navItem.getElementsByTagName('a'); //list is returned
@@ -230,6 +223,20 @@ collapsibles.forEach(collapsible => {
 });
 
 
+//Hide fixed navigation bar while not scrolling
+
+let isScrolling;
+
+window.addEventListener('scroll', event => {
+    
+    window.clearTimeout(isScrolling);
+    navbar.style.display = 'none';
+
+
+    isScrolling = setTimeout( () => {
+        navbar.style.display = 'block';
+    }, 66);
+}, false);
 
 
 
@@ -240,8 +247,7 @@ collapsibles.forEach(collapsible => {
 
 
 
-
-/* my trying */
+/* 1st try */
 
 // let sectionCounts = document.querySelectorAll('section').length;
 // let navBar = document.querySelector('nav');
