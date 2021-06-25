@@ -61,6 +61,7 @@ for(const section of sections) {
     // anchorItem.innerText = capitalizeFirstLetter(section.id);
     anchorItem.innerText = section.getAttribute('data-nav');
     anchorItem.setAttribute('href', `#${section.id}`); 
+    listItem.setAttribute('id', `#${section.id}`); 
     anchorItem.setAttribute('class', `navLink`); 
     anchorItem.setAttribute('style', 'text-decoration: none; margin: 10px; color: rgb(136,203,171);');
     listItem.setAttribute('style', 'padding: 10px 5px; margin: 20px');
@@ -148,12 +149,21 @@ window.addEventListener('scroll', toggleActiceState);
 
 function scrollToSection(event) {
     event.preventDefault();
-    let selectedAnchorHref = event.target.getAttribute('href');
-    let selectedSection = document.querySelector(selectedAnchorHref);
+    // console.log(event.target.nodeName);
+    let selectedSection;
+    if(event.target.nodeName === 'A') {
+        let selectedAnchorHref = event.target.getAttribute('href');
+        selectedSection = document.querySelector(selectedAnchorHref);
+        // console.log(selectedSection);
+    } else if(event.target.nodeName === 'LI') {
+        let selectedItem = event.target.getAttribute('id');
+        selectedSection = document.querySelector(selectedItem);
+        // console.log(selectedSection);
+    }
     selectedSection.scrollIntoView({behavior: "smooth", block: "center"}); //, block: "center"
 }
 
-navItems.forEach(navItem => {
+navItems.forEach(navItem     => {
     navItem.addEventListener('click', scrollToSection);
 });
 
@@ -180,25 +190,28 @@ function reportWindowSize (event) {
             navLink.setAttribute('class', 'styleOfHamburger');
         });
     } else {
+        // navUL.style.display = 'flex';    
+
         navItems.forEach(navItem => {
             navItem.classList.remove('humburgerItems');
         });
         navLinks.forEach(navLink => {
             navItem.classList.remove('styleOfHamburger');
         });
-    }
+    } 
 }
 window.addEventListener('resize', reportWindowSize);
 
-function navULDisplay () {
-    if(navUL.style.display === 'none') {
-        navUL.style.display = 'flex';
-    } else {
-        navUL.style.display = 'none';
-    }
-}
+// function navULDisplay () {
+//     if(navUL.style.display === 'none') {
+//         navUL.style.display = 'flex';
+//     } else {
+//         navUL.style.display = 'none';
+//     }
+// }
+
 toggleBtn.addEventListener('click', ()=> {
-    navUL.style.display = 'flex';
+    navUL.style.display = "inline-block";
     
     navUL.addEventListener('click', ()=> {
         navUL.style.display = 'none';    
