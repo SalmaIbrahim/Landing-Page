@@ -186,12 +186,12 @@ function reportWindowSize (event) {
             navItem.setAttribute('class', 'humburgerItems');
         });
         navLinks.forEach(navLink => {
-            console.log(navLink);
             navLink.setAttribute('class', 'styleOfHamburger');
         });
     } else {
-        // navUL.style.display = 'flex';    
-
+        if(navUL.style.display === 'none') {
+            navUL.style.display = 'block';    
+        }
         navItems.forEach(navItem => {
             navItem.classList.remove('humburgerItems');
         });
