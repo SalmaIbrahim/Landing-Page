@@ -198,14 +198,15 @@ function navULDisplay () {
     }
 }
 toggleBtn.addEventListener('click', ()=> {
-    // navUL.classList.toggle('active');    
-    navULDisplay();
+    navUL.style.display = 'flex';
+    
+    navUL.addEventListener('click', ()=> {
+        navUL.style.display = 'none';    
+    });
 });
 
 
-navUL.addEventListener('click', ()=> {
-    navULDisplay();
-});
+
 
 
 // collapsible
