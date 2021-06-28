@@ -77,7 +77,7 @@ function toggleActiceState() {
     // intersection observer
     let options = {
         root: null,
-        rootMargin: '-200px',
+        rootMargin: '0px',
         threshold: 0.0
     };
 
@@ -189,7 +189,7 @@ toggleBtn.addEventListener('click', ()=> {
     navUL.addEventListener('click', () => {
         setTimeout( ()=> {
             navUL.style.display = 'none';    
-        }, 1000);
+        }, 2000);
     });
 });
 
