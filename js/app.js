@@ -32,56 +32,31 @@ let listItem, anchorItem;
  * 
 */
 
-//unused function
-/*
-function capitalizeFirstLetter(str) {
-    let firstLetterCapital = str.charAt(0).toUpperCase();
-    let returnedValue = firstLetterCapital + str.slice(1);
-    let index;
-
-    for(let i = 0; i < str.length; i++) {
-        let check = isNaN(str[i]);
-        if(!check) {
-            index = i;
-            returnedValue = `${returnedValue.slice(0, i)} ${returnedValue.slice(i)}`; 
-            break;
-        }
-        
-    }
-
-    return returnedValue;
-}
-*/
-
-
-// creating nav list items
+// build the nav
+// creating nav list items for navbar
 for(const section of sections) {
     listItem = document.createElement('li'); 
     anchorItem = document.createElement('a');
-    // anchorItem.innerText = capitalizeFirstLetter(section.id);
     anchorItem.innerText = section.getAttribute('data-nav');
     anchorItem.setAttribute('href', `#${section.id}`); 
     listItem.setAttribute('id', `#${section.id}`); 
     anchorItem.setAttribute('class', `navLink`); 
     anchorItem.setAttribute('style', 'text-decoration: none; margin: 10px; color: rgb(136,203,171);');
     listItem.setAttribute('style', 'padding: 10px 5px; margin: 20px');
-    // anchorItem.setAttribute('class', 'navItem');
     listItem.setAttribute('class', 'navItem');
     listItem.appendChild(anchorItem);
     docFragment.appendChild(listItem);
 }
 
+//appending list items to the unordered list 
 list.setAttribute('style', 'list-style-type: none; background: rgba(0,13,60,1);');
 list.appendChild(docFragment);
 
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
+//selecting list items and their links
 let navItems = document.querySelectorAll('.navItem');
 let navLinks = document.querySelectorAll('.navLinks');
 
+//to get links from href of anchor in each item list
 // navItem class in items
 let linksHref = [];
 navItems.forEach( navItem => {
@@ -89,7 +64,14 @@ navItems.forEach( navItem => {
     linksHref.push(aItems[0].getAttribute('href').slice(1)); 
 });
 
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
 
+// Set sections as active
+// Add class 'active' to section when near top of viewport
 //Using a scroll event listener 
 function toggleActiceState() {
     // intersection observer
@@ -121,33 +103,16 @@ function toggleActiceState() {
             }        
         });
     }
-
+    // using IntersectionObserver to specify selected section
     let observer = new IntersectionObserver (callback, options);
     
-    // targeting the elements to be observed
+    // targeting the elements to be observed **section
     sections.forEach(section => {
         observer.observe(section);
     });
 }
 
-window.addEventListener('scroll', toggleActiceState);
-
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
+// Scroll to section on link click
 function scrollToSection(event) {
     event.preventDefault();
     let selectedSection;
@@ -161,18 +126,8 @@ function scrollToSection(event) {
     selectedSection.scrollIntoView({behavior: "smooth", block: "center"}); //, block: "center"
 }
 
-navItems.forEach(navItem     => {
-    navItem.addEventListener('click', scrollToSection);
-});
-
 // Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
 // resoinsive window
-
 let toggleBtn = document.querySelector('.toggle-btn');
 let navUL= document.querySelector('#navbar__list'); 
 
@@ -198,8 +153,8 @@ function reportWindowSize (event) {
         });
     } 
 }
-window.addEventListener('resize', reportWindowSize);
 
+// visibility of navbar 
 function navULDisplay () {
     if(navUL.style.display === 'none') {
         navUL.style.display = 'flex';
@@ -208,28 +163,37 @@ function navULDisplay () {
     }
 }
 
-// let hideNav;
-// hideNav = setTimeout( ()=> {
-        //     navUL.style.display = 'none';    
-        // }, 80);
+/**
+ * End Main Functions
+ * Begin Events
+ * 
+*/
 
+// checking winow scrolling to set choosen section as active
+window.addEventListener('scroll', toggleActiceState);
+
+// Scroll to anchor ID using scrollTO event
+navItems.forEach(navItem => {
+    navItem.addEventListener('click', scrollToSection);
+});
+
+// checking window resize to apply resonsitive site
+window.addEventListener('resize', reportWindowSize);
+
+//for a responsive window
+// humburger button event listener
 toggleBtn.addEventListener('click', ()=> {
     navULDisplay();
     
+    //hiding navbar after choosing wanted section after 1 second
     navUL.addEventListener('click', () => {
-        
-
-        // hideNav;
-        let activeSect = document.querySelectorAll('.your-active-class');
-        console.log(activeSect);
+        setTimeout( ()=> {
+            navUL.style.display = 'none';    
+        }, 1000);
     });
 });
 
-
-
-
-
-// collapsible
+// collapsible sections
 let collapsibles = document.querySelectorAll('.collapsible');
 
 collapsibles.forEach(collapsible => {
@@ -244,8 +208,7 @@ collapsibles.forEach(collapsible => {
 });
 
 
-//Hide fixed navigation bar while not scrolling
-
+//Hide fixed navigation bar while scrolling
 let isScrolling;
 
 window.addEventListener('scroll', event => {
@@ -259,37 +222,12 @@ window.addEventListener('scroll', event => {
     }, 66);
 }, false);
 
+/*
+* Begin Events
+* 
+*/
 
-
-
-/* 1st try */
-
-// let sectionCounts = document.querySelectorAll('section').length;
-// let navBar = document.querySelector('nav');
-// // navBar.setAttribute('style', 'border: 2px dashed orange;')
-// let unorderedList = document.querySelector('#navbar__list');
-
-// unorderedList.setAttribute('style', 'list-style-type: none; background-color: rgba(0,13,60,1); padding: 30px;');
-
-
-// let liOfUl, anchorInLi;
-
-// for(let i = 0; i < sectionCounts; i++){
-//     // creating list items
-//     liOfUl = document.createElement('li');
-//     // creating anchors
-//     anchorInLi = document.createElement('a');
-//     anchorInLi.setAttribute('href', `#section${i+1}`);
-//     // styling of list items
-//     anchorInLi.setAttribute('style', 'padding: 20px; margin: 50px; text-decoration: none; color: rgb(136,203,171);');
-    
-//     // text of anchors
-//     anchorInLi.innerText = `Section ${i+1}`;
-//     //appending anchor in list items
-//     liOfUl.appendChild(anchorInLi);    
-//     // appending list items in unordered list
-//     unorderedList.appendChild(liOfUl);
-// }
+// check the performance
 let endTime = performance.now();
 let time = endTime - startTime;
 console.log(time);
