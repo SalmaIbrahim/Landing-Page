@@ -95,25 +95,26 @@ function toggleActiceState() {
     // intersection observer
     let options = {
         root: null,
-        rootMargin: '-300px',
+        rootMargin: '-200px',
         threshold: 0.0
     };
 
     let callback = (entries, observer) => { // callback function which will be invoked
         let sectionId;
         entries.forEach(entry => {      // each entry desctibes an intersection change for one observed target element
-        
+
             if(!entry.isIntersecting) { // if false (not true)
                 entry.target.classList.remove('your-active-class'); 
                 return;            
             }
-            entry.target.classList.add('your-active-class'); 
-            // console.log(entry.target.id);
-            sectionId = entry.target.id; // id of the activated section
+            else {
+                entry.target.classList.add('your-active-class'); //add
+                sectionId = entry.target.id; // id of the activated section
+            }
     
             for(let i = 0; i < linksHref.length; i++) {
                 if(linksHref[i] !== sectionId) {  // if item id != section id
-                    navItems[i].classList.remove('item-active-class'); // remoce list item class 'item-active-class'
+                    navItems[i].classList.remove('item-active-class'); // remove list item class 'item-active-class'
                     continue;
                 }
                 navItems[i].classList.add('item-active-class');    
@@ -149,16 +150,13 @@ window.addEventListener('scroll', toggleActiceState);
 
 function scrollToSection(event) {
     event.preventDefault();
-    // console.log(event.target.nodeName);
     let selectedSection;
     if(event.target.nodeName === 'A') {
         let selectedAnchorHref = event.target.getAttribute('href');
         selectedSection = document.querySelector(selectedAnchorHref);
-        // console.log(selectedSection);
     } else if(event.target.nodeName === 'LI') {
         let selectedItem = event.target.getAttribute('id');
         selectedSection = document.querySelector(selectedItem);
-        // console.log(selectedSection);
     }
     selectedSection.scrollIntoView({behavior: "smooth", block: "center"}); //, block: "center"
 }
@@ -202,19 +200,28 @@ function reportWindowSize (event) {
 }
 window.addEventListener('resize', reportWindowSize);
 
-// function navULDisplay () {
-//     if(navUL.style.display === 'none') {
-//         navUL.style.display = 'flex';
-//     } else {
-//         navUL.style.display = 'none';
-//     }
-// }
+function navULDisplay () {
+    if(navUL.style.display === 'none') {
+        navUL.style.display = 'flex';
+    } else {
+        navUL.style.display = 'none';
+    }
+}
+
+// let hideNav;
+// hideNav = setTimeout( ()=> {
+        //     navUL.style.display = 'none';    
+        // }, 80);
 
 toggleBtn.addEventListener('click', ()=> {
-    navUL.style.display = "inline-block";
+    navULDisplay();
     
-    navUL.addEventListener('click', ()=> {
-        navUL.style.display = 'none';    
+    navUL.addEventListener('click', () => {
+        
+
+        // hideNav;
+        let activeSect = document.querySelectorAll('.your-active-class');
+        console.log(activeSect);
     });
 });
 
@@ -251,12 +258,6 @@ window.addEventListener('scroll', event => {
         navbar.style.display = 'block';
     }, 66);
 }, false);
-
-
-
-
-
-
 
 
 

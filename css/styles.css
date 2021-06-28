@@ -280,6 +280,11 @@ a.styleOfHamburger {
     #navbar__list.active{
         display: flex;
     }
+    
+    section.your-active-class {
+        background: rgb(0, 0, 0);
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+    }
 }
 
 /* #navbar__list.done{
